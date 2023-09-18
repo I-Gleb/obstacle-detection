@@ -1,4 +1,4 @@
-import argparse
+import argparse, os
 from PIL import Image, ImageDraw
 
 # Takes contents of map description file
@@ -42,13 +42,13 @@ def draw_map(width, height, s, obstacles, robot_x, robot_y, closest):
     def get_px_coord(coord):
         return coord / s * cell_size_px
 
-    image = Image.new("RGB", (width_px, height_px), "white")
+    image = Image.new("RGB", (width_px + 1, height_px + 1), "white")
     draw = ImageDraw.Draw(image)
 
     # Draw grid
-    for i in range(height):
+    for i in range(height + 1):
         draw.line([(0, i * cell_size_px), (width_px, i * cell_size_px)], fill="black")
-    for i in range(width):
+    for i in range(width + 1):
         draw.line([(i * cell_size_px, 0), (i * cell_size_px, height_px)], fill="black")
 
     # Draw obstacles
@@ -63,7 +63,9 @@ def draw_map(width, height, s, obstacles, robot_x, robot_y, closest):
         draw.line([(get_px_coord(robot_x), get_px_coord(robot_y)), tuple(map(get_px_coord, coords))], fill="green", width=2)
         draw.regular_polygon((tuple(map(get_px_coord, coords)), cell_size_px / 20), 100, fill="green")
 
-    image.save("results/visualization.png")
+    if not os.path.isdir("output"):
+        os.makedirs("output")
+    image.save("output/visualization.png")
 
 
 # Returns a dictionary with the closests obstacles to the robot in 4 directions

@@ -4,4 +4,4 @@ COPY . /app
 
 RUN pip install pillow
 
-CMD ["python3", "locate_obstacles.py", "map.txt", "2.5", "1.5"]
+CMD ["python3", "locate_obstacles.py", "sample_input/map.txt", "2.5", "1.5"]
