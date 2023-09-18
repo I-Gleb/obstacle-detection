@@ -63,7 +63,7 @@ def draw_map(width, height, s, obstacles, robot_x, robot_y, closest):
         draw.line([(get_px_coord(robot_x), get_px_coord(robot_y)), tuple(map(get_px_coord, coords))], fill="green", width=2)
         draw.regular_polygon((tuple(map(get_px_coord, coords)), cell_size_px / 20), 100, fill="green")
 
-    image.show()
+    image.save("results/visualization.png")
 
 
 # Returns a dictionary with the closests obstacles to the robot in 4 directions
